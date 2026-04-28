@@ -190,6 +190,13 @@ internal static class Program
                 MutexBanqueiro.ReleaseMutex();
             }
 
+            // Em alguns ciclos, força um pedido inválido para gerar NEGADO no fluxo normal.
+            if (Random.Shared.Next(0, 100) < 15)
+            {
+                int recurso = Random.Shared.Next(0, NumeroRecursos);
+                pedido[recurso] = Necessidade[idCliente, recurso] + 1;
+            }
+
             int resultado = SolicitarRecursos(idCliente, pedido);
             if (resultado == 0)
             {
