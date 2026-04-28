@@ -1,0 +1,20 @@
+# Build
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Visual Studio / VS Code / Rider
+.vs/
+*.user
+*.suo
+.idea/
+
+# NuGet
+*.nupkg
+**/packages/
+
+# Outros
+*.dll
+*.exe
+*.pdb

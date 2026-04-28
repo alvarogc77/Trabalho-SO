@@ -1,0 +1,109 @@
+================================================================================
+                    TRABALHO PRÁTICO — ALGORITMO DO BANQUEIRO
+================================================================================
+
+  Disciplina (matéria): _______________________________________________________
+
+  Professor(a):         _______________________________________________________
+
+  Aluno(s):             _______________________________________________________
+                        _______________________________________________________
+                        (em caso de dupla, preencher o segundo nome no espaço
+                         acima ou abaixo)
+
+  Turma: _______________          Data: ____ / ____ / __________
+
+  Repositório GitHub (link público):
+  https://github.com/alvarogc77/Trabalho-SO
+  (clone / git remote: https://github.com/alvarogc77/Trabalho-SO.git)
+
+================================================================================
+
+
+1. INTRODUÇÃO
+-------------
+
+O algoritmo do banqueiro é uma forma de evitar impasse (deadlock) em sistemas
+em que processos (ou clientes) pedem e devolvem recursos de tipos distintos. O
+“banqueiro” só atende um pedido se, depois de conceder o recurso, o sistema
+ainda puder evoluir de modo seguro — ou seja, se existir uma sequência na qual
+todos consigam terminar sem ficar em espera circular.
+
+Neste trabalho, várias threads simulam clientes que pedem e liberam recursos.
+O acesso às estruturas compartilhadas (vetor Disponivel e matrizes Máximo,
+Alocação e Necessidade) é protegido por um mutex, reduzindo condições de corrida
+nas operações de pedido e liberação. A correção lógica vem do teste de estado
+seguro após simular a concessão de um pedido; pedidos que levariam a um estado
+inseguro são negados (retorno -1), conforme o enunciado.
+
+
+2. DESENVOLVIMENTO
+------------------
+
+Foi implementado um programa em C# (console) com as constantes e estruturas
+análogas às do enunciado: quantidade de tipos de recurso definida pelos
+argumentos da linha de comando, cinco clientes (threads) e, para cada cliente,
+Máximo, Alocação e Necessidade.
+
+As funções centrais (equivalentes a request_resources e release_resources) são
+SolicitarRecursos e LiberarRecursos, retornando 0 em caso de sucesso e -1 em
+caso de falha. SolicitarRecursos verifica se o pedido não excede a Necessidade
+restaurante, se há recursos disponíveis, aplica a alocação provisória e chama
+o algoritmo de segurança. Se o estado for inseguro, a operação é desfeita.
+LiberarRecursos verifica se a liberação não excede o que estava alocado e
+atualiza Alocação, Disponivel e Necessidade.
+
+A matriz Máximo foi inicializada de forma que, para cada coluna (tipo de
+recurso), a soma das demandas máximas entre os clientes seja igual ao total
+inicial em Disponivel, de modo a partir de um estado coerente com alocação
+inicial nula. As threads rodam em loop por um número fixo de ciclos; ao
+encerrar, cada uma devolve os recursos ainda alocados para o vetor Disponivel
+refletir o total do sistema.
+
+O programa é compilado e executado com o SDK .NET, conforme descrito no
+arquivo readme.md do repositório.
+
+
+3. RESULTADOS
+-------------
+
+(A completar com prints ou trechos reais de saída do console após executar, por
+ exemplo:  dotnet run -- 10 5 7 )
+
+Exemplo de linhas esperadas (substituir pelos do seu teste):
+  - Recursos iniciais exibidos corretamente a partir dos argumentos.
+  - Mensagens de pedido ACEITO e pedido NEGADO, quando o banqueiro recusa
+    por estado inseguro ou falta de recurso.
+  - Ao término, recursos finais no vetor Disponivel iguais aos iniciais, após
+    as threads devolverem o que ainda estavam usando.
+
+Cole abaixo ou anexe as capturas de tela no PDF:
+
+  _____________________________________________________________________________
+  _____________________________________________________________________________
+  _____________________________________________________________________________
+
+
+4. CONCLUSÃO
+------------
+
+A implementação cumpre o roteiro: multithreads de clientes, exclusão mútua nas
+operações no banco e uso do algoritmo de segurança para não aceitar estados
+inseguros. O roteiro do livro-texto (Silberschatz et al.) para detecção de
+sequência segura foi seguido na rotina de verificação. Para trabalhos futuros
+poderia se variar a inicialização de Máximo ou o número de ciclos, sempre
+respeitando a documentação de compilação e execução no readme.
+
+
+5. REFERÊNCIA
+-------------
+
+SILBERSCHATZ, Abraham; GALVIN, Peter B.; GAGNE, Greg. Fundamentos de sistemas
+operacionais. 9. ed. Rio de Janeiro, RJ: LTC, c2015.
+
+
+================================================================================
+Observação: converta este arquivo em PDF (Word, Google Docs, LibreOffice, etc.)
+para envio no Canvas, mantendo o link do repositório GitHub visível no cabeçalho
+ou na primeira página, conforme pedido do professor.
+================================================================================
