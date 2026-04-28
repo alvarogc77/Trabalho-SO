@@ -1,10 +1,11 @@
 # Algoritmo do Banqueiro (C#)
 
-Simulação multithread com mutex: vários clientes pedem e liberam recursos; o banqueiro só aceita pedidos que mantêm o sistema em **estado seguro** (algoritmo de segurança do livro Silberschatz et al.).
+Simulação multithread com mutex: vários clientes pedem e liberam recursos; o banqueiro só aceita pedidos que mantêm o sistema em estado seguro (algoritmo de segurança do livro Silberschatz et al.).
 
 ## Requisitos
 
-- [.NET SDK](https://dotnet.microsoft.com/download) 8 ou superior (o projeto está em `net9.0`; ajuste no `.csproj` se precisar de versão anterior).
+- .NET SDK 8 ou superior (o projeto está em `net9.0`; ajuste no `.csproj` se precisar de versão anterior).  
+  Baixe em: https://dotnet.microsoft.com/download
 
 ## Compilar
 
@@ -16,7 +17,7 @@ dotnet build
 
 ## Executar
 
-Passe na linha de comando a quantidade disponível de **cada tipo** de recurso (o número de argumentos define quantos tipos existem).
+Passe na linha de comando a quantidade disponível de cada tipo de recurso (o número de argumentos define quantos tipos existem).
 
 Exemplo do enunciado (3 tipos: 10, 5 e 7 instâncias):
 
